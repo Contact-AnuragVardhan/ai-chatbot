@@ -1,8 +1,6 @@
-'use client';
-
 import GroupChat from "@/components/custom/group-chat";
 
 
-export default function Page() {
+export default function HomePage() {
   return <GroupChat />;
 }

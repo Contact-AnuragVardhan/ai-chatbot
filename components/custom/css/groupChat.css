@@ -1,0 +1,67 @@
+.groupchat-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .groupchat-loginContainer {
+    margin: auto;
+    text-align: center;
+    max-width: 400px;
+  }
+  
+  .groupchat-chatContainer {
+    display: flex;
+    height: 100%;
+  }
+  
+  .groupchat-usersList {
+    width: 20%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .groupchat-chatSection {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .groupchat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+  }
+  
+  .groupchat-message {
+    margin-bottom: 10px;
+  }
+  
+  .groupchat-myMessage {
+    margin-bottom: 10px;
+    text-align: right;
+  }
+  
+  .groupchat-messageInput {
+    display: flex;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .groupchat-input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .groupchat-button {
+    padding: 10px 20px;
+  }
+  
+  .groupchat-userItem {
+    margin-bottom: 5px;
+    list-style-type: none;
+  }
+  

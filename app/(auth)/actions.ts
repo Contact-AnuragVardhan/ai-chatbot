@@ -15,7 +15,7 @@ export interface LoginActionState {
   status: "idle" | "in_progress" | "success" | "failed" | "invalid_data";
 }
 
-export const login = async (
+/*export const login = async (
   _: LoginActionState,
   formData: FormData,
 ): Promise<LoginActionState> => {
@@ -39,7 +39,7 @@ export const login = async (
 
     return { status: "failed" };
   }
-};
+};*/
 
 export interface RegisterActionState {
   status:
@@ -51,7 +51,7 @@ export interface RegisterActionState {
     | "invalid_data";
 }
 
-export const register = async (
+/*export const register = async (
   _: RegisterActionState,
   formData: FormData,
 ): Promise<RegisterActionState> => {
@@ -82,4 +82,4 @@ export const register = async (
 
     return { status: "failed" };
   }
-};
+};*/
