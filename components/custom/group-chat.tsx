@@ -26,18 +26,31 @@ const GroupChat: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_SERVER_URL);
+    const newSocket = io(SOCKET_SERVER_URL, {
+        transports: ['websocket'],
+        reconnection: true,
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        autoConnect: true,
+      });
 
     newSocket.on('connect_error', (err) => {
       console.error('Connection error:', err);
     });
+
+    newSocket.on('reconnect', () => {
+        if (isJoined) {
+          newSocket.emit('join_room', { room, username });
+        }
+      });
 
     setSocket(newSocket);
 
     return () => {
       newSocket.close();
     };
-  }, []);
+  }, [isJoined, room, username]);
 
   useEffect(() => {
     if (socket) {
