@@ -22,7 +22,7 @@ const GroupChat: React.FC = () => {
   const [messages, setMessages] = useState<MessageData[]>([]);
   const [users, setUsers] = useState<string[]>([]);
   const [isJoined, setIsJoined] = useState<boolean>(false);
-
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,12 +37,17 @@ const GroupChat: React.FC = () => {
 
     newSocket.on('connect_error', (err) => {
       console.error('Connection error:', err);
+      setError('Unable to connect to the chat server.');
     });
 
     newSocket.on('reconnect', () => {
         if (isJoined) {
           newSocket.emit('join_room', { room, username });
         }
+      });
+
+      newSocket.on('error_message', (data: { message: string }) => {
+        setError(data.message);
       });
 
     setSocket(newSocket);
@@ -76,8 +81,10 @@ const GroupChat: React.FC = () => {
     if (socket && room.trim() !== '' && username.trim() !== '') {
       socket.emit('join_room', { room, username });
       setIsJoined(true);
+      setError(null);
     } else {
-      alert('Please enter a username and room name.');
+      //alert('Please enter a username and room name.');
+      setError('Please enter a username and room name.');
     }
   };
 
@@ -105,6 +112,7 @@ const GroupChat: React.FC = () => {
       ) : !isJoined ? (
         <div className="groupchat-loginContainer">
           <h2>Join Chat Room</h2>
+          {error && <p className="groupchat-error">{error}</p>}
           <input
             type="text"
             placeholder="Enter your username"
@@ -155,7 +163,7 @@ const GroupChat: React.FC = () => {
                 placeholder="Type your message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter') sendMessage();
                 }}
                 className="groupchat-input"
