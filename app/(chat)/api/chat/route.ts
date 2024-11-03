@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { customModel } from '@/ai';
 import { models } from '@/ai/models';
 import { canvasPrompt, regularPrompt } from '@/ai/prompts';
-import { auth } from '@/app/(auth)/auth';
+//import { auth } from '@/app/(auth)/auth';
 import {
   deleteChatById,
   getChatById,
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   }: { id: string; messages: Array<Message>; modelId: string } =
     await request.json();
 
-  const session = await auth();
+  const session: any = {};//await auth();
 
   if (!session) {
     return new Response('Unauthorized', { status: 401 });
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
 
           streamingData.append({ type: 'finish', content: '' });
 
-          if (session.user && session.user.id) {
+          if (session && session.user && session?.user?.id) {
             await saveDocument({
               id,
               title,
@@ -332,7 +332,7 @@ export async function DELETE(request: Request) {
     return new Response('Not Found', { status: 404 });
   }
 
-  const session = await auth();
+  const session: any = {};//await auth();
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });

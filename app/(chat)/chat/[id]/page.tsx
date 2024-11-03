@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 import { DEFAULT_MODEL_NAME, models } from '@/ai/models';
-import { auth } from '@/app/(auth)/auth';
+//import { auth } from '@/app/(auth)/auth';
 import { Chat as PreviewChat } from '@/components/custom/chat';
 import { getChatById } from '@/db/queries';
 import { Chat } from '@/db/schema';
@@ -24,7 +24,7 @@ export default async function Page(props: { params: Promise<any> }) {
     messages: convertToUIMessages(chatFromDb.messages as Array<CoreMessage>),
   };
 
-  const session = await auth();
+  const session: any = {};;
 
   if (!session || !session.user) {
     return notFound();
