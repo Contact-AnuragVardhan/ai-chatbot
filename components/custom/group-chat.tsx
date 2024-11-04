@@ -26,14 +26,16 @@ const GroupChat: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_SERVER_URL, {
+    /*const newSocket = io(SOCKET_SERVER_URL, {
         transports: ['websocket'],
         reconnection: true,
         reconnectionAttempts: Infinity,
         reconnectionDelay: 1000,
         reconnectionDelayMax: 5000,
         autoConnect: true,
-      });
+      });*/
+
+      const newSocket = io(SOCKET_SERVER_URL);
 
     newSocket.on('connect_error', (err) => {
       console.error('Connection error:', err);
@@ -42,11 +44,13 @@ const GroupChat: React.FC = () => {
 
     newSocket.on('reconnect', () => {
         if (isJoined) {
+          console.log("In reconnect for " + { room, username });
           newSocket.emit('join_room', { room, username });
         }
       });
 
       newSocket.on('error_message', (data: { message: string }) => {
+        console.error('Connection error1:', message);
         setError(data.message);
       });
 
@@ -55,15 +59,18 @@ const GroupChat: React.FC = () => {
     return () => {
       newSocket.close();
     };
-  }, [isJoined, room, username]);
+  }, []);
+  //[isJoined, room, username]
 
   useEffect(() => {
     if (socket) {
       const handleReceiveMessage = (data: MessageData) => {
+        console.log("In handleReceiveMessage" + data);
         setMessages((prevMessages) => [...prevMessages, data]);
         scrollToBottom();
       };
       const handleUserList = (usersInRoom: string[]) => {
+        console.log("In handleUserList" + usersInRoom);
         setUsers(usersInRoom);
       };
 
