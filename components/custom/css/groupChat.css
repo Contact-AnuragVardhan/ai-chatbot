@@ -17,7 +17,7 @@
   
   .groupchat-usersList {
     width: 20%;
-    background-color: #f1f1f1;
+    border-right: 1px solid ;
     padding: 10px;
     overflow-y: auto;
   }
@@ -32,7 +32,6 @@
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    background-color: #fff;
   }
   
   .groupchat-message {
@@ -47,7 +46,6 @@
   .groupchat-messageInput {
     display: flex;
     padding: 10px;
-    background-color: #f9f9f9;
   }
   
   .groupchat-input {
